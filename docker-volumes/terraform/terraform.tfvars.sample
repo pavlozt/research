@@ -1,0 +1,23 @@
+# YC
+yandex_token     = ""
+yandex_cloud_id  = ""
+yandex_folder_id = ""
+
+
+cloudflare_api_token = ""
+zone_name            = ""
+zone_suffix          = ""
+
+node_name = "dockertest"
+
+
+cores           = 4
+memory          = 8
+boot_disk_size  = 15
+# exact image id 
+os_image_id = "fd80sfcd16u3pv7sveh1" #  debian 12 2023-12
+# or use family
+#os_image_family = "debian-12"
+
+data_disk_type = "network-ssd-nonreplicated"
+data_disk_size = 93

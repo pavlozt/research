@@ -1,0 +1,26 @@
+- name: Prepare test tools
+  become: false
+  hosts: all
+  vars_files:
+    - vars.project.yaml
+  tasks:
+    - name: Install tools
+      become: true
+      ansible.builtin.apt:
+        name: 
+          - fio
+          - sysstat
+          - screen
+
+    - name: Copy docker files
+      ansible.builtin.copy:
+        src: "../docker/{{ item }}"
+        dest: "/home/{{ansible_user}}/{{ item }}"
+      with_items:
+        - Dockerfile
+    - name: Copy task files
+      ansible.builtin.copy:
+        src: "../{{ item }}"
+        dest: "/home/{{ansible_user}}/{{ item }}"
+      with_items:
+        - task.ini

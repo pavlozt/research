@@ -1,0 +1,30 @@
+- name: Prepare host for docker applications
+  become: true
+  gather_facts: false
+  hosts: all
+  vars_files:
+    - vars.project.yaml
+  pre_tasks:
+    - name: Wait for connection
+      wait_for_connection:
+    - name: Gathering facts
+      setup:
+
+    - name: Apt update
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 7200
+      tags: osupgrade
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      ansible.builtin.apt:
+        upgrade: dist
+        cache_valid_time: 7200
+      tags: osupgrade
+
+  roles:
+    - role: geerlingguy.docker
+      become: yes
+      vars:
+        docker_users:
+          - "{{ ansible_user }}"
+        docker_install_compose_plugin: true
